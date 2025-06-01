@@ -26,16 +26,17 @@ app.use(cookieParser());
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "secret", // Use env var for secret in production
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       httpOnly: true,
-      secure: false, // Set to true if HTTPS is used in production
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === "production", // ✅ dynamically secure only in prod
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
+
 
 // Passport middleware
 app.use(passport.initialize());
