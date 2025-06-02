@@ -100,7 +100,7 @@ app.get("/auth/google/callback", passport.authenticate("google", {
   email: email,
   token: token,
   });
-  const redirectUrl = `${process.env.VITE_FRONTEND_API}/auth/google/callback?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
+  const redirectUrl = `https://investtrack-4xgu.onrender.com/auth/google/callback?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
   res.redirect(redirectUrl);
 });
 
