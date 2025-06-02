@@ -19,9 +19,10 @@ const userSchema = new mongoose.Schema({
   },
   googleId: {
     type: String,
-    required: false, // Only for OAuth users
+    required: false,// Only for OAuth users
     unique: true,    // Optional but recommended for Google users
-  },
+    sparse: true, 
+ },
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
