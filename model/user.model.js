@@ -18,12 +18,11 @@ const userSchema = new mongoose.Schema({
   },
   googleId: {
     type: String,
-    unique: true,
-    sparse: true, // << Important: make this sparse to allow multiple nulls
+    // Do NOT put unique or sparse here to avoid duplicate index creation
   },
 }, { timestamps: true });
 
-// This ensures Mongoose creates the index on startup
+// Create a unique sparse index on googleId to avoid duplicate null values
 userSchema.index({ googleId: 1 }, { unique: true, sparse: true });
 
 const User = mongoose.model("User", userSchema);
