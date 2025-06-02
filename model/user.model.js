@@ -8,21 +8,24 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Ensure emails are unique
+    unique: true,
   },
   password: {
     type: String,
     required: function () {
-      // Password is required only if googleId is NOT present
-      return !this.googleId;
+      return !this.googleId; // Password required only if no googleId
     },
   },
   googleId: {
     type: String,
     unique: true,
-    sparse: true, // ✅ Only enforce uniqueness when value exists
+    sparse: true, // << Important: make this sparse to allow multiple nulls
   },
 }, { timestamps: true });
 
+// This ensures Mongoose creates the index on startup
+userSchema.index({ googleId: 1 }, { unique: true, sparse: true });
+
 const User = mongoose.model("User", userSchema);
+
 export default User;
