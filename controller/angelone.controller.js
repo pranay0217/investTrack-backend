@@ -87,7 +87,7 @@ export const angelonelogin = async (req, res) => {
 
       // Notify FastAPI server
       try {
-        await axios.post(`${import.meta.env.VITE_ML_URL}/fetch_portfolio`, {
+        await axios.post(`${process.env.VITE_ML_URL}/fetch_portfolio`, {
           username,
           clientcode,
           token,
