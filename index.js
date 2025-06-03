@@ -141,17 +141,17 @@ app.get("/broker/angelonefetchPortfolio", async (req, res) => {
     if (!username) {
       return res.status(400).json({ success: false, message: 'Username is required' });
     }
-
+    console.log("username found !!")
     const db = mongoose.connection.db;
     const collection = db.collection("Holdings");
-
+    console.log("Database collection found")
     // Find user holdings by username
     const userHoldings = await collection.find({ username }).toArray();
 
     if (!userHoldings || userHoldings.length === 0) {
       return res.status(404).json({ success: false, message: 'No holdings found for this user' });
     }
-
+    console.log("angelone holdings found for user : ", username)
     // Fix the mapping to correctly access the 'holdings' field.
     const formatted = userHoldings.map(entry => {
       // Assuming 'entry.holdings' directly contains the array of holdings
@@ -161,8 +161,8 @@ app.get("/broker/angelonefetchPortfolio", async (req, res) => {
       };
     });
 
-    // console.log("Holdings:", JSON.stringify(formatted, null, 2));
-    // console.log("angelone holdings fetched successfully, sending to frontend");
+    console.log("Holdings:", JSON.stringify(formatted, null, 2));
+    console.log("angelone holdings fetched successfully, sending to frontend");
 
     return res.status(200).json({
       success: true,
