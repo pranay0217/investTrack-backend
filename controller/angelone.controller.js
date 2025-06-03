@@ -86,6 +86,9 @@ export const angelonelogin = async (req, res) => {
       );
 
       // Notify FastAPI server
+      if(!username){
+          console.log("No username found while sending data to fastAPI backend")
+      }
       try {
         await axios.post(`${process.env.VITE_ML_URL}/fetch_portfolio`, {
           username,
